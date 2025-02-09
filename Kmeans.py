@@ -3,21 +3,21 @@ import matplotlib.pyplot as plt
 from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
 
-#x = np.arange(1,1001,1)
+#generate dataset 3 cluster
 coor,label = make_blobs(n_samples=1000, centers=3, n_features=2, random_state=0)
-#dataset = list(zip(x,y))
 n = np.arange(1,11,1)
 inertial = []
 
+#optimalisasi model Kmeans dengan metode elbow
 for i in n:
-      kmeans = KMeans(n_clusters=i)
+      kmeans = KMeans(n_clusters=i,init='k-means++', max_iter=300, n_init=10, random_state=0)
       kmeans.fit(coor)
       inertial.append(kmeans.inertia_)
 
-model=KMeans(n_clusters=3)
+model=KMeans(n_clusters=3,init='k-means++',max_iter=300, n_init=10, random_state=0)
 model.fit(coor)
-#print(x)
-#visualisasi
+
+#visualisasi gradik clustering dan n_cluster 
 fig,axs = plt.subplots(1,2, figsize=(10,5))
 
 axs[0].scatter(coor[:,0],coor[:,1], c = model.labels_, label= 'Data 1')
